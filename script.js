@@ -35,6 +35,7 @@ let weather = async () => {
     const response = await fetch('https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=' + city.value, options);
     const result = await response.json();
     console.log(result);
+    
 
     if ((result.cloud_pct >= 0) & (result.cloud_pct < 10)) {
       card.style.backgroundImage = "url('sunny.jpg')";
@@ -64,23 +65,25 @@ let weather = async () => {
         </div>
     </div>`
 
-  card.innerHTML = cardHTML
+    card.style.backgroundColor = "transparent";
+    card.innerHTML = cardHTML
 
   } catch (error) {
+    card.style.backgroundColor = "rgb(210, 210, 210)";
     cardHTML = `<div class="maincard-container">
     <div class="weather-header">
       <h2>WEATHER REPORT</h2>
     </div>
     <div class="weather-stats">
         <p class="weather-location">${city.value}</p>
-        <h2 class="temp">${0}&degC</h2>
-        <p class="weather-state">${0}</p>
+        <h2 class="temp">$0&degC</h2>
+        <p class="weather-state">$0</p>
       </div>
       <div class="others">
-          <div class="feels-like">Feels Like: ${0}&degC </div>
-          <div class="cloud-pct">Cloud Percentage: ${0}% </div>
-          <div class="humidity">Humidity: ${0}%</div>
-          <div class="wind-speed">Wind Speed: ${0}km/h</div>
+          <div class="feels-like">Feels Like: $0&degC </div>
+          <div class="cloud-pct">Cloud Percentage: $0% </div>
+          <div class="humidity">Humidity: $0%</div>
+          <div class="wind-speed">Wind Speed: $0km/h</div>
         </div>
     </div>`
 
@@ -95,4 +98,11 @@ let weather = async () => {
 
 searchBtn.addEventListener("click" , () => {
   weather()
+})
+
+
+document.body.addEventListener("keypress" , (event) => {
+  if (event.key === "Enter"){
+    weather()
+  }
 })
